@@ -1,0 +1,90 @@
+##
+# This parser is a fork of my work on "rl" but now adapted to Guerzoni's 'LPC' syntax, where:
+# A constant is T (verum) or ⊥ (falsum)
+# A 'sentencial char' is pN (like p0, p1...)
+# A formula: ϕ ::= (¬ϕ) | (ϕ ∧ ϕ) | (ϕ ∨ ϕ) | (ϕ → ϕ) | [A-Z] 
+##
+
+grammar PropositionalCalculus
+
+  rule formula
+    expression binary_operator expression {
+      def content
+        [ expression1.content, binary_operator.text_value, expression2.content ]
+      end
+    } /
+    expression
+  end
+
+  rule expression
+    '(' expression ')' {
+      def content
+        expression.content
+      end
+    } /
+    '(' expression binary_operator expression ')' {
+      def content
+        [ expression1.content, binary_operator.text_value, expression2.content ]
+      end
+    } /
+    unary_operator expression {
+      def content
+        [ unary_operator.text_value, expression.content ]
+      end
+    } /
+    atom {
+      def content
+        text_value
+      end
+    }
+  end
+
+  rule unary_operator
+    negation
+  end
+  
+  rule binary_operator
+    conjunction / disjunction / implication / biimplication
+  end
+  
+  rule negation
+    '~'
+  end
+
+  rule implication
+    '=>'
+  end
+  
+  rule biimplication
+    '<=>'
+  end
+  
+  rule conjunction
+    '^'
+  end
+  
+  rule disjunction
+    'v'
+  end
+
+  rule atom
+    proposition / constant
+  end
+  
+  rule proposition
+    [A-Z]
+  end
+
+  rule constant
+    verum / falsum
+  end
+  
+  rule verum
+    'true'
+  end
+
+  rule falsum
+    'false'
+  end
+
+end
