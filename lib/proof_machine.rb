@@ -1,3 +1,5 @@
+require 'treetop'
+
 module ProofMachine
 
   require 'proof_machine/unification'
@@ -7,4 +9,6 @@ module ProofMachine
   require 'proof_machine/sequent'
   require 'proof_machine/prop'
 
+  require 'proof_machine/built_in_rules'
+  
 end

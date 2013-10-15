@@ -24,7 +24,7 @@ module ProofMachine
     
     def self.[](*statements)
       result = new(statements).unify
-      result ? result.to_hash : result
+      result && result.to_hash
     end
 
     ####################
@@ -58,7 +58,7 @@ module ProofMachine
     def unify_array_with_array(bindings, array_1, array_2)
       throw :unification_failed unless array_1.length == array_2.length
 
-      array_1.zip(array_2).each do |item_1, item_2|
+      array_1.zip(array_2) do |item_1, item_2|
         unify_terms(bindings, item_1, item_2)
       end
     end

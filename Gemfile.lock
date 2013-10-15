@@ -1,0 +1,27 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    metaclass (0.0.1)
+    minitest (5.0.7)
+    mocha (0.14.0)
+      metaclass (~> 0.0.1)
+    multi_json (1.8.0)
+    polyglot (0.3.3)
+    rake (10.1.0)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest
+  mocha
+  rake
+  simplecov
+  treetop

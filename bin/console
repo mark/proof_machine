@@ -5,7 +5,7 @@ Bundler.require(:default)
 
 $:.unshift 'lib'
 
-require 'proofs'
+require 'proof_machine'
 require 'irb'
 require 'irb/completion'
 

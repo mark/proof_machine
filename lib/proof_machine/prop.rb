@@ -21,11 +21,11 @@ module PropositionalCalculus
     end
 
     def binary_operator
-      elements[1]
+      elements[2]
     end
 
     def expression2
-      elements[2]
+      elements[4]
     end
   end
 
@@ -51,11 +51,29 @@ module PropositionalCalculus
     r2 = _nt_expression
     s1 << r2
     if r2
-      r3 = _nt_binary_operator
+      r4 = _nt_space
+      if r4
+        r3 = r4
+      else
+        r3 = instantiate_node(SyntaxNode,input, index...index)
+      end
       s1 << r3
       if r3
-        r4 = _nt_expression
-        s1 << r4
+        r5 = _nt_binary_operator
+        s1 << r5
+        if r5
+          r7 = _nt_space
+          if r7
+            r6 = r7
+          else
+            r6 = instantiate_node(SyntaxNode,input, index...index)
+          end
+          s1 << r6
+          if r6
+            r8 = _nt_expression
+            s1 << r8
+          end
+        end
       end
     end
     if s1.last
@@ -69,9 +87,9 @@ module PropositionalCalculus
     if r1
       r0 = r1
     else
-      r5 = _nt_expression
-      if r5
-        r0 = r5
+      r9 = _nt_expression
+      if r9
+        r0 = r9
       else
         @index = i0
         r0 = nil
@@ -85,7 +103,7 @@ module PropositionalCalculus
 
   module Expression0
     def expression
-      elements[1]
+      elements[2]
     end
 
   end
@@ -98,15 +116,15 @@ module PropositionalCalculus
 
   module Expression2
     def expression1
-      elements[1]
-    end
-
-    def binary_operator
       elements[2]
     end
 
+    def binary_operator
+      elements[4]
+    end
+
     def expression2
-      elements[3]
+      elements[6]
     end
 
   end
@@ -123,19 +141,13 @@ module PropositionalCalculus
     end
 
     def expression
-      elements[1]
+      elements[2]
     end
   end
 
   module Expression5
     def content
       [ unary_operator.text_value, expression.content ]
-    end
-  end
-
-  module Expression6
-    def content
-      text_value
     end
   end
 
@@ -161,17 +173,35 @@ module PropositionalCalculus
     end
     s1 << r2
     if r2
-      r3 = _nt_expression
+      r4 = _nt_space
+      if r4
+        r3 = r4
+      else
+        r3 = instantiate_node(SyntaxNode,input, index...index)
+      end
       s1 << r3
       if r3
-        if has_terminal?(')', false, index)
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
-        else
-          terminal_parse_failure(')')
-          r4 = nil
+        r5 = _nt_expression
+        s1 << r5
+        if r5
+          r7 = _nt_space
+          if r7
+            r6 = r7
+          else
+            r6 = instantiate_node(SyntaxNode,input, index...index)
+          end
+          s1 << r6
+          if r6
+            if has_terminal?(')', false, index)
+              r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              terminal_parse_failure(')')
+              r8 = nil
+            end
+            s1 << r8
+          end
         end
-        s1 << r4
       end
     end
     if s1.last
@@ -185,70 +215,114 @@ module PropositionalCalculus
     if r1
       r0 = r1
     else
-      i5, s5 = index, []
+      i9, s9 = index, []
       if has_terminal?('(', false, index)
-        r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
         terminal_parse_failure('(')
-        r6 = nil
+        r10 = nil
       end
-      s5 << r6
-      if r6
-        r7 = _nt_expression
-        s5 << r7
-        if r7
-          r8 = _nt_binary_operator
-          s5 << r8
-          if r8
-            r9 = _nt_expression
-            s5 << r9
-            if r9
-              if has_terminal?(')', false, index)
-                r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                terminal_parse_failure(')')
-                r10 = nil
+      s9 << r10
+      if r10
+        r12 = _nt_space
+        if r12
+          r11 = r12
+        else
+          r11 = instantiate_node(SyntaxNode,input, index...index)
+        end
+        s9 << r11
+        if r11
+          r13 = _nt_expression
+          s9 << r13
+          if r13
+            r15 = _nt_space
+            if r15
+              r14 = r15
+            else
+              r14 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s9 << r14
+            if r14
+              r16 = _nt_binary_operator
+              s9 << r16
+              if r16
+                r18 = _nt_space
+                if r18
+                  r17 = r18
+                else
+                  r17 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s9 << r17
+                if r17
+                  r19 = _nt_expression
+                  s9 << r19
+                  if r19
+                    r21 = _nt_space
+                    if r21
+                      r20 = r21
+                    else
+                      r20 = instantiate_node(SyntaxNode,input, index...index)
+                    end
+                    s9 << r20
+                    if r20
+                      if has_terminal?(')', false, index)
+                        r22 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                        @index += 1
+                      else
+                        terminal_parse_failure(')')
+                        r22 = nil
+                      end
+                      s9 << r22
+                    end
+                  end
+                end
               end
-              s5 << r10
             end
           end
         end
       end
-      if s5.last
-        r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
-        r5.extend(Expression2)
-        r5.extend(Expression3)
+      if s9.last
+        r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
+        r9.extend(Expression2)
+        r9.extend(Expression3)
       else
-        @index = i5
-        r5 = nil
+        @index = i9
+        r9 = nil
       end
-      if r5
-        r0 = r5
+      if r9
+        r0 = r9
       else
-        i11, s11 = index, []
-        r12 = _nt_unary_operator
-        s11 << r12
-        if r12
-          r13 = _nt_expression
-          s11 << r13
+        i23, s23 = index, []
+        r24 = _nt_unary_operator
+        s23 << r24
+        if r24
+          r26 = _nt_space
+          if r26
+            r25 = r26
+          else
+            r25 = instantiate_node(SyntaxNode,input, index...index)
+          end
+          s23 << r25
+          if r25
+            r27 = _nt_expression
+            s23 << r27
+          end
         end
-        if s11.last
-          r11 = instantiate_node(SyntaxNode,input, i11...index, s11)
-          r11.extend(Expression4)
-          r11.extend(Expression5)
+        if s23.last
+          r23 = instantiate_node(SyntaxNode,input, i23...index, s23)
+          r23.extend(Expression4)
+          r23.extend(Expression5)
         else
-          @index = i11
-          r11 = nil
+          @index = i23
+          r23 = nil
         end
-        if r11
-          r0 = r11
+        if r23
+          r0 = r23
         else
-          r14 = _nt_atom
-          r14.extend(Expression6)
-          if r14
-            r0 = r14
+          r28 = _nt_atom
+          if r28
+            r0 = r28
           else
             @index = i0
             r0 = nil
@@ -460,14 +534,25 @@ module PropositionalCalculus
       if r2
         r0 = r2
       else
-        @index = i0
-        r0 = nil
+        r3 = _nt_variable
+        if r3
+          r0 = r3
+        else
+          @index = i0
+          r0 = nil
+        end
       end
     end
 
     node_cache[:atom][start_index] = r0
 
     r0
+  end
+
+  module Proposition0
+    def content
+      text_value
+    end
   end
 
   def _nt_proposition
@@ -483,6 +568,7 @@ module PropositionalCalculus
 
     if has_terminal?('\G[A-Z]', true, index)
       r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      r0.extend(Proposition0)
       @index += 1
     else
       r0 = nil
@@ -523,6 +609,62 @@ module PropositionalCalculus
     r0
   end
 
+  module Variable0
+    def proposition
+      elements[1]
+    end
+  end
+
+  module Variable1
+    def content
+      proposition.text_value.to_sym
+    end
+  end
+
+  def _nt_variable
+    start_index = index
+    if node_cache[:variable].has_key?(index)
+      cached = node_cache[:variable][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    i0, s0 = index, []
+    if has_terminal?(":", false, index)
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      @index += 1
+    else
+      terminal_parse_failure(":")
+      r1 = nil
+    end
+    s0 << r1
+    if r1
+      r2 = _nt_proposition
+      s0 << r2
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(Variable0)
+      r0.extend(Variable1)
+    else
+      @index = i0
+      r0 = nil
+    end
+
+    node_cache[:variable][start_index] = r0
+
+    r0
+  end
+
+  module Verum0
+    def content
+      true
+    end
+  end
+
   def _nt_verum
     start_index = index
     if node_cache[:verum].has_key?(index)
@@ -536,6 +678,7 @@ module PropositionalCalculus
 
     if has_terminal?('true', false, index)
       r0 = instantiate_node(SyntaxNode,input, index...(index + 4))
+      r0.extend(Verum0)
       @index += 4
     else
       terminal_parse_failure('true')
@@ -545,6 +688,12 @@ module PropositionalCalculus
     node_cache[:verum][start_index] = r0
 
     r0
+  end
+
+  module Falsum0
+    def content
+      false
+    end
   end
 
   def _nt_falsum
@@ -560,6 +709,7 @@ module PropositionalCalculus
 
     if has_terminal?('false', false, index)
       r0 = instantiate_node(SyntaxNode,input, index...(index + 5))
+      r0.extend(Falsum0)
       @index += 5
     else
       terminal_parse_failure('false')
@@ -567,6 +717,43 @@ module PropositionalCalculus
     end
 
     node_cache[:falsum][start_index] = r0
+
+    r0
+  end
+
+  def _nt_space
+    start_index = index
+    if node_cache[:space].has_key?(index)
+      cached = node_cache[:space][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    s0, i0 = [], index
+    loop do
+      if has_terminal?('\G[\\s\\n\\r\\t]', true, index)
+        r1 = true
+        @index += 1
+      else
+        r1 = nil
+      end
+      if r1
+        s0 << r1
+      else
+        break
+      end
+    end
+    if s0.empty?
+      @index = i0
+      r0 = nil
+    else
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+    end
+
+    node_cache[:space][start_index] = r0
 
     r0
   end

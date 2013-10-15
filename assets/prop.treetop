@@ -8,7 +8,7 @@
 grammar PropositionalCalculus
 
   rule formula
-    expression binary_operator expression {
+    expression space? binary_operator space? expression {
       def content
         [ expression1.content, binary_operator.text_value, expression2.content ]
       end
@@ -17,26 +17,22 @@ grammar PropositionalCalculus
   end
 
   rule expression
-    '(' expression ')' {
+    '(' space? expression space? ')' {
       def content
         expression.content
       end
     } /
-    '(' expression binary_operator expression ')' {
+    '(' space? expression space? binary_operator space? expression space? ')' {
       def content
         [ expression1.content, binary_operator.text_value, expression2.content ]
       end
     } /
-    unary_operator expression {
+    unary_operator space? expression {
       def content
         [ unary_operator.text_value, expression.content ]
       end
     } /
-    atom {
-      def content
-        text_value
-      end
-    }
+    atom
   end
 
   rule unary_operator
@@ -68,23 +64,47 @@ grammar PropositionalCalculus
   end
 
   rule atom
-    proposition / constant
+    proposition / constant / variable
   end
   
   rule proposition
-    [A-Z]
+    [A-Z] {
+      def content
+        text_value
+      end
+    }
   end
 
   rule constant
     verum / falsum
   end
   
+  rule variable
+    ":" proposition {
+      def content
+        proposition.text_value.to_sym
+      end
+    }
+  end
+
   rule verum
-    'true'
+    'true' {
+      def content
+        true
+      end
+    }
   end
 
   rule falsum
-    'false'
+    'false' {
+      def content
+        false
+      end
+    }
+  end
+
+  rule space
+    [\s\n\r\t]+
   end
 
 end

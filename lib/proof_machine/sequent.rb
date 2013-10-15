@@ -1,4 +1,3 @@
-require 'treetop'
 require_relative 'prop'
 
 module ProofMachine
@@ -11,8 +10,8 @@ module ProofMachine
     #             #
     ###############
     
-    def initialize(*premises)
-      @premises = premises
+    def initialize(premises)
+      @premises = premises.map { |premise| parse(premise) }
     end
 
     ####################
@@ -22,14 +21,26 @@ module ProofMachine
     ####################
     
     def concludes(conclusion)
-      @conclusion = conclusion
+      @conclusion = parse(conclusion)
     end
 
-    def infer(*statements)
+    def infer(statements)
       unifier  = Unification.new [@premises, statements]
       bindings = unifier.unify
 
       bindings && bindings.substitute(@conclusion)
+    end
+
+    def parser
+      @parser ||= PropositionalCalculusParser.new
+    end
+
+    def parse(statement)
+      if statement.kind_of?(String)
+        parser.parse(statement).content
+      else
+        statement
+      end
     end
 
   end

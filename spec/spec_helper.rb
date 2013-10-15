@@ -7,16 +7,18 @@ require 'mocha/setup'
 
 class RoiRunner < Struct.new(:roi)
 
+  attr_reader :inference
+  
   def premises(*statements)
     statements  = statements.map { |statement| parse(statement) }
-    @inferences = roi.infer statements
+    @inference = roi.infer *statements
     self
   end
 
   def must_infer(statement)
     statement = parse(statement)
 
-    @inferences.must_include(statement)
+    @inference.must_equal(statement)
   end
 
   def parse(statment)
@@ -35,4 +37,8 @@ class RoiRunner < Struct.new(:roi)
     @parser ||= PropositionalCalculusParser.new
   end
 
+end
+
+def runner(rule_of_inference)
+  RoiRunner.new(rule_of_inference)
 end
